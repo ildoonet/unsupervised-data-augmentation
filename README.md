@@ -1,10 +1,9 @@
-# unsupervised-data-augmentation
-Unofficial Implementation of Unsupervised Data Augmentation.
+# UDA : Unsupervised Data Augmentation
 
-We only conduct experiments on cifar10/svhn.
+Unofficial Implementation of [Unsupervised Data Augmentation](https://arxiv.org/abs/1904.12848v1).
 
 - Experiments on Text Dataset need to be done. Any Pull-Requests would be appreciated.
-- Augmentation policies for Imagenet are not available publicly.
+- Augmentation policies for SVHN, Imagenet using AutoAugment are not available publicly. We use policies from [Fast AutoAugment](https://github.com/kakaobrain/fast-autoaugment).
 
 Most of codes are from [Fast AutoAugment](https://github.com/kakaobrain/fast-autoaugment).
 
@@ -14,13 +13,13 @@ todo.
 
 ## Experiments
 
-### Cifar10
+### Cifar10 (Reduced, 4k dataset)
 
-| WResNet 28x2 | Top1 Err |
-|--------------|---------:|
-| default      | 0.2130   |
-| autoaugment  | 0.1837   |
-| UDA          | 0.0947   |
+| WResNet 28x2 | Paper    | Top1 Err |
+|--------------|---------:|---------:|
+| Supervised   | 20.26    | 21.30    |
+| AutoAugment  | 14.1*    | 18.37    |
+| UDA          | 5.27     | 9.47     |
 
 todo.
 
@@ -28,7 +27,12 @@ todo.
 
 todo.
 
+### ImageNet
+
+todo.
+
 ## References
 
+- Unsupervised Data Augmentation : https://arxiv.org/abs/1904.12848v1
 - Fast AutoAugment : https://github.com/kakaobrain/fast-autoaugment
 
