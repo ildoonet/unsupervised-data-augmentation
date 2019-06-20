@@ -1,0 +1,16 @@
+model:
+  type: wresnet28_2
+dataset: cifar10
+aug: autoaug_extend
+cutout: 16
+batch: 32
+batch_unsup: 960
+ratio_unsup: 10.0
+epoch: 200
+lr: 0.025
+lr_schedule:
+  type: 'cosine'
+optimizer:
+  type: sgd
+  nesterov: True
+  decay: 0.0002
