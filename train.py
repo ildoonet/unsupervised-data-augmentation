@@ -61,7 +61,12 @@ def run_epoch(model, loader_s, loader_u, loss_fn, optimizer, desc_default='', ep
             loss_kldiv = torch.sum(loss_kldiv, dim=1)
             assert len(loss_kldiv) == len(unlabel1)
             # loss += (epoch / 200. * C.get()['ratio_unsup']) * torch.mean(loss_kldiv)
-            loss += C.get()['ratio_unsup'] * torch.mean(loss_kldiv)
+            if C.get()['ratio_mode'] == 'constant':
+                loss += C.get()['ratio_unsup'] * torch.mean(loss_kldiv)
+            elif C.get()['ratio_mode'] == 'gradual':
+                loss += (epoch / float(C.get()['epoch'])) * C.get()['ratio_unsup'] * torch.mean(loss_kldiv)
+            else:
+                raise ValueError
 
         if optimizer:
             loss.backward()
@@ -143,7 +148,7 @@ def train_and_eval(tag, dataroot, metric='last', save_path=None, only_eval=False
         logger.warning('tag not provided, no tensorboard log.')
     else:
         from tensorboardX import SummaryWriter
-    writers = [SummaryWriter(log_dir='./logs/%s/%s' % (tag, x)) for x in ['train', 'test']]
+    writers = [SummaryWriter(logdir='./logs/%s/%s' % (tag, x)) for x in ['train', 'test']]
 
     result = OrderedDict()
     epoch_start = 1

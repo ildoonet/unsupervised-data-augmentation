@@ -193,6 +193,80 @@ def autoaug_policy():
     return exp0s + exp1s + exp2s
 
 
+@autoaug2arsaug
+def svhn_policies():
+    policies = [
+        [("ShearX", 0.9, 4), ("Invert", 0.2, 3)],
+        [("ShearY", 0.9, 8), ("Invert", 0.7, 5)],
+        [("Equalize", 0.6, 5), ("Solarize", 0.6, 6)],
+        [("Invert", 0.9, 3), ("Equalize", 0.6, 3)],
+        [("Equalize", 0.6, 1), ("Rotate", 0.9, 3)],
+        [("ShearX", 0.9, 4), ("AutoContrast", 0.8, 3)],
+        [("ShearY", 0.9, 8), ("Invert", 0.4, 5)],
+        [("ShearY", 0.9, 5), ("Solarize", 0.2, 6)],
+        [("Invert", 0.9, 6), ("AutoContrast", 0.8, 1)],
+        [("Equalize", 0.6, 3), ("Rotate", 0.9, 3)],
+        [("ShearX", 0.9, 4), ("Solarize", 0.3, 3)],
+        [("ShearY", 0.8, 8), ("Invert", 0.7, 4)],
+        [("Equalize", 0.9, 5), ("TranslateY", 0.6, 6)],
+        [("Invert", 0.9, 4), ("Equalize", 0.6, 7)],
+        [("Contrast", 0.3, 3), ("Rotate", 0.8, 4)],
+        [("ShearX", 0.9, 3), ("Invert", 0.5, 3)],
+        [("ShearY", 0.9, 8), ("Invert", 0.4, 5)],
+        [("Equalize", 0.6, 3), ("Solarize", 0.2, 3)],
+        [("Invert", 0.9, 4), ("Equalize", 0.5, 6)],
+        [("Equalize", 0.6, 1), ("Rotate", 0.9, 3)],
+        [("Invert", 0.8, 5), ("TranslateY", 0.0, 2)],
+        [("ShearY", 0.7, 6), ("Solarize", 0.4, 8)],
+        [("Invert", 0.6, 4), ("Rotate", 0.8, 4)],
+        [("ShearY", 0.3, 7), ("TranslateX", 0.9, 3)],
+        [("ShearX", 0.1, 6), ("Invert", 0.6, 5)],
+        [("Solarize", 0.7, 2), ("TranslateY", 0.6, 7)],
+        [("ShearY", 0.8, 4), ("Invert", 0.8, 8)],
+        [("ShearX", 0.7, 9), ("TranslateY", 0.8, 3)],
+        [("ShearY", 0.8, 5), ("AutoContrast", 0.7, 3)],
+        [("ShearX", 0.7, 2), ("Invert", 0.1, 5)],
+        [("ShearY", 0.8, 9), ("ShearX", 0.7, 7)],
+        [("ShearY", 0.7, 4), ("Solarize", 0.9, 7)],
+        [("ShearY", 0.9, 5), ("Invert", 0.0, 4)],
+        [("TranslateX", 0.8, 3), ("ShearY", 0.7, 7)],
+        [("Invert", 0.1, 7), ("Solarize", 0.3, 9)],
+        [("Invert", 0.6, 2), ("Invert", 0.9, 4)],
+        [("Equalize", 0.5, 2), ("Solarize", 0.9, 7)],
+        [("ShearY", 0.6, 7), ("Solarize", 0.8, 3)],
+        [("ShearY", 0.6, 3), ("Invert", 0.6, 1)],
+        [("ShearX", 0.4, 2), ("Rotate", 0.7, 5)]]
+
+    return policies
+
+
+@autoaug2arsaug
+def autoaug_imagenet_policy():
+    policies = [
+        [("Posterize", 0.4, 8), ("Rotate", 0.6, 9)],
+        [("Solarize", 0.6, 5), ("AutoContrast", 0.6, 5)],
+        [("Equalize", 0.8, 8), ("Equalize", 0.6, 3)],
+        [("Posterize", 0.6, 7), ("Posterize", 0.6, 6)],
+        [("Equalize", 0.4, 7), ("Solarize", 0.2, 4)],
+        [("Equalize", 0.4, 4), ("Rotate", 0.8, 8)],
+        [("Solarize", 0.6, 3), ("Equalize", 0.6, 7)],
+        [("Posterize", 0.8, 5), ("Equalize", 1.0, 2)],
+        [("Rotate", 0.2, 3), ("Solarize", 0.6, 8)],
+        [("Equalize", 0.6, 8), ("Posterize", 0.4, 6)],
+        [("Rotate", 0.8, 8), ("Color", 0.4, 0)],
+        [("Rotate", 0.4, 9), ("Equalize", 0.6, 2)],
+        [("Equalize", 0.0, 7), ("Equalize", 0.8, 8)],
+        [("Invert", 0.6, 4), ("Equalize", 1.0, 8)],
+        [("Color", 0.6, 4), ("Contrast", 1.0, 8)],
+        [("Rotate", 0.8, 8), ("Color", 1.0, 2)],
+        [("Color", 0.8, 8), ("Solarize", 0.8, 7)],
+        [("Sharpness", 0.4, 7), ("Invert", 0.6, 8)],
+        [("ShearX", 0.6, 5), ("Equalize", 1.0, 9)],
+        [("Color", 0.4, 0), ("Equalize", 0.6, 3)]
+    ]
+    return policies
+
+
 PARAMETER_MAX = 10
 
 

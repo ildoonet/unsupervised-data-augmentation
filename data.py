@@ -82,16 +82,17 @@ def get_dataloaders(dataset, batch, batch_unsup, dataroot):
         trainset.train_labels = train_labels
 
         otherset = Subset(unsup_trainset, valid_idx)        # for unsupervised
+        # otherset = unsup_trainset
         otherset = UnsupervisedDataset(otherset, transform_valid, autoaug)
     else:
         raise ValueError('invalid dataset name=%s' % dataset)
 
     trainloader = torch.utils.data.DataLoader(
-        total_trainset, batch_size=batch, shuffle=False, num_workers=32, pin_memory=True,
+        total_trainset, batch_size=batch, shuffle=False, num_workers=8, pin_memory=True,
         sampler=StratifiedSampler(trainset.train_labels), drop_last=True)
 
     unsuploader = torch.utils.data.DataLoader(
-        otherset, batch_size=batch_unsup, shuffle=True, num_workers=32, pin_memory=True,
+        otherset, batch_size=batch_unsup, shuffle=True, num_workers=8, pin_memory=True,
         sampler=None, drop_last=True)
 
     testloader = torch.utils.data.DataLoader(

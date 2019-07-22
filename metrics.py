@@ -75,7 +75,7 @@ class Accumulator:
 
 
 class SummaryWriterDummy:
-    def __init__(self, log_dir):
+    def __init__(self, logdir):
         pass
 
     def add_scalar(self, *args, **kwargs):
