@@ -11,17 +11,23 @@ Most of codes are from [Fast AutoAugment](https://github.com/kakaobrain/fast-aut
 
 todo.
 
+## Run
+
+```
+$ python train.py -c confs/wresnet28x2.yaml --unsupervised
+```
+
 ## Experiments
 
 ### Cifar10 (Reduced, 4k dataset)
 
 #### Reproduce Paper's Result
 
-| WResNet 28x2 | Paper    | Top1 Err |
+| WResNet 28x2 | Paper    | Our(Top1 Err) |
 |--------------|---------:|---------:|
 | Supervised   | 20.26    | 21.30    |
 | AutoAugment  | 14.1*    | 18.37    |
-| UDA          | 5.27     | 8.87     |
+| UDA          | 5.27     | 7.28     |
 
 #### Ablation
 

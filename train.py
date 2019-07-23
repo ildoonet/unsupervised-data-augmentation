@@ -29,7 +29,7 @@ def run_epoch(model, loader_s, loader_u, loss_fn, optimizer, desc_default='', ep
         loader_s = tqdm(loader_s, disable=tqdm_disable)
         loader_s.set_description('[%s %04d/%04d]' % (desc_default, epoch, C.get()['epoch']))
 
-    loader_u = itertools.cycle(loader_u)
+    iter_u = iter(loader_u)
 
     metrics = Accumulator()
     cnt = 0
@@ -44,7 +44,11 @@ def run_epoch(model, loader_s, loader_u, loss_fn, optimizer, desc_default='', ep
             loss = loss_fn(preds, label)  # loss for supervised learning
         else:
             label = label.cuda()
-            unlabel1, unlabel2 = next(loader_u)
+            try:
+                unlabel1, unlabel2 = next(iter_u)
+            except StopIteration:
+                iter_u = iter(loader_u)
+                unlabel1, unlabel2 = next(iter_u)
             data_all = torch.cat([data, unlabel1, unlabel2]).cuda()
 
             preds_all = model(data_all)
