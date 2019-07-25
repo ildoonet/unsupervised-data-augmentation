@@ -22,6 +22,8 @@ from warmup_scheduler import GradualWarmupScheduler
 logger = get_logger('Unsupervised Data Augmentation')
 logger.setLevel(logging.INFO)
 
+best_valid_top1 = 0
+
 
 def run_epoch(model, loader_s, loader_u, loss_fn, optimizer, desc_default='', epoch=0, writer=None, verbose=1, unsupervised=False, scheduler=None):
     tqdm_disable = bool(os.environ.get('TASK_NAME', ''))
@@ -173,6 +175,7 @@ def train_and_eval(tag, dataroot, metric='last', save_path=None, only_eval=False
         return result
 
     # train loop
+    global best_valid_top1
     best_valid_loss = 10e10
     for epoch in range(epoch_start, max_epoch + 1):
         model.train()
@@ -184,6 +187,9 @@ def train_and_eval(tag, dataroot, metric='last', save_path=None, only_eval=False
         model.eval()
         if epoch % (10 if 'cifar' in C.get()['dataset'] else 30) == 0 or epoch == max_epoch:
             rs['test'] = run_epoch(model, testloader, unsuploader, criterion, None, desc_default='*test', epoch=epoch, writer=writers[1], verbose=True)
+
+            if best_valid_top1 < rs['test']['top1']:
+                best_valid_top1 = rs['test']['top1']
 
             if metric == 'last' or rs[metric]['loss'] < best_valid_loss:    # TODO
                 if metric != 'last':
@@ -242,3 +248,4 @@ if __name__ == '__main__':
     logger.info(result)
     logger.info('elapsed time: %.3f Hours' % (elapsed / 3600.))
     logger.info('top1 error in testset: %.4f' % (1. - result['top1_test']))
+    logger.info('best top1 error in testset: %.4f' % (1. - best_valid_top1))

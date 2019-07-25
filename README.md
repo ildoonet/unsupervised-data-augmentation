@@ -27,7 +27,7 @@ $ python train.py -c confs/wresnet28x2.yaml --unsupervised
 |--------------|---------:|---------:|
 | Supervised   | 20.26    | 21.30    |
 | AutoAugment  | 14.1*    | 18.37    |
-| UDA          | 5.27     | 7.28     |
+| UDA          | 5.27     | 7.01     |
 
 #### Ablation
 
