@@ -88,7 +88,7 @@ def get_dataloaders(dataset, batch, batch_unsup, dataroot):
         raise ValueError('invalid dataset name=%s' % dataset)
 
     trainloader = torch.utils.data.DataLoader(
-        total_trainset, batch_size=batch, shuffle=False, num_workers=8, pin_memory=True,
+        trainset, batch_size=batch, shuffle=False, num_workers=8, pin_memory=True,
         sampler=StratifiedSampler(trainset.train_labels), drop_last=True)
 
     unsuploader = torch.utils.data.DataLoader(
