@@ -83,7 +83,7 @@ def get_dataloaders(dataset, batch, batch_unsup, dataroot):
 
         otherset = Subset(unsup_trainset, valid_idx)        # for unsupervised
         # otherset = unsup_trainset
-        otherset = UnsupervisedDataset(otherset, transform_valid, autoaug)
+        otherset = UnsupervisedDataset(otherset, transform_valid, autoaug, cutout=C.get()['cutout'])
     else:
         raise ValueError('invalid dataset name=%s' % dataset)
 
@@ -110,6 +110,8 @@ class CutoutDefault(object):
         self.length = length
 
     def __call__(self, img):
+        if self.length <= 0:
+            return img
         h, w = img.size(1), img.size(2)
         mask = np.ones((h, w), np.float32)
         y = np.random.randint(h)
@@ -142,16 +144,18 @@ class Augmentation(object):
 
 
 class UnsupervisedDataset(Dataset):
-    def __init__(self, dataset, transform_default, transform_aug):
+    def __init__(self, dataset, transform_default, transform_aug, cutout=0):
         self.dataset = dataset
         self.transform_default = transform_default
         self.transform_aug = transform_aug
+        self.transform_cutout = CutoutDefault(cutout)   # issue 4 : https://github.com/ildoonet/unsupervised-data-augmentation/issues/4
 
     def __getitem__(self, index):
         img, _ = self.dataset[index]
 
         img1 = self.transform_default(img)
         img2 = self.transform_default(self.transform_aug(img))
+        img2 = self.transform_cutout(img2)
 
         return img1, img2
 

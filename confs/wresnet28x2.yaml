@@ -2,7 +2,7 @@ model:
   type: wresnet28_2
 dataset: cifar10
 aug: fa_reduced_cifar10   # autoaug_extend
-cutout: 0
+cutout: 16
 batch: 32
 batch_unsup: 960
 ratio_unsup: 5.0
